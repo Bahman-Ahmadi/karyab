@@ -1,0 +1,46 @@
+.search {
+	float: right;
+	position: relative;
+	z-index: 1;
+	height: 56px;
+	margin: 0 18px;
+}
+.jobs {
+	padding: 20px;
+}
+.job {
+	direction: rtl;
+	font-family: "vazir";
+	text-align: center;
+	box-shadow: 0 0 5px #cccccc;
+	background: #f5f5f5;
+	border-radius: 8px;
+	padding: 8px;
+	display: block;
+}
+.title {
+	font-family: "vazirb";
+}
+.description {
+	text-align: right;
+}
+.view,.share {
+	padding: 8px;
+	border-radius: 50px;
+	font-family: "vazir";
+}
+.view:focus,.share:focus {
+	background: black !important;
+	color: white !important
+}
+.view {
+	font-weight: bold;
+	background: #0052ec;
+	border: 1px solid darkblue;
+	color: white;
+}
+.share {
+	background: white;
+	border: 1px solid white;
+	color: black;
+}

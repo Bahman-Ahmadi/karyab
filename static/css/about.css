@@ -1,0 +1,12 @@
+.header {
+	font-family: "vazirb";
+	margin-top: 4px;
+}
+.description {
+	font-family: "vazir";
+	text-align: right;
+	direction: rtl;
+}
+.image {
+	border-radius: 3rem;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width" />
+
+	<!-- CONSOLE [just for development, when you want to deploying this project please remove this link & script]-->
+	<link rel="stylesheet" href="../static/assets/console.css" type="text/css" media="all" />
+	<script src="../static/assets/console.js" type="text/javascript" charset="utf-8"></script>
+
+	<!-- Libraries -->
+	<script src="../static/assets/materialize.js"></script>
+	<link rel="stylesheet" href="../static/assets/materialize.css">
+	<link rel="stylesheet" href="../static/assets/fontawesome.css">
+
+	<link rel="stylesheet" href="../static/css/register.css" type="text/css" media="all" />
+
+	<title>ورود/ثبت‌نام</title>
+</head>
+<body>
+	<!-- HEADER -->
+	<div class="navbar-fixed">
+		<nav>
+			<div class="nav-wrapper white">
+				<a href="#" class="brand-logo"><span class="black-text">کاریاب</span></a>
+				<a href="#" data-target="openMenu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+			</div>
+		</nav>
+	</div>
+	<ul id="openMenu" class="sidenav">
+		<li><div class="user-view">
+			<div class="background">
+				<img src="../static/assets/bg.png" width="300" height="300">
+			</div>
+			<a href="#user"><img class="circle" src="../static/assets/profile.jpg"></a>
+			<a href="#name"><span class="white-text name">user</span></a>
+			<a href="#email"><span class="white-text">registration page</span></a>
+		</div>
+		</li>
+		<li><a href="/projects" class="waves-effect"><i class="material-icons">check</i>projects</a></li>
+		<li><a href="/about" class="waves-effect"><i class="material-icons">persons</i>about us</a></li>
+	</ul>
+
+	<!-- CONTENT -->
+	<div id="content"></div>
+	<div id="BoxToastBox"></div>
+	<div class="item" id="loader">
+		<div class="loader10"></div>
+	</div>
+	<script src="../static/js/tools.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../static/js/register.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

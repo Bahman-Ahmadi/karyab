@@ -1,0 +1,14 @@
+.box {
+	margin: auto;
+	direction: rtl;
+}
+.pic404 {
+	width: 100%;
+}
+.quiz {
+	padding: 8px;
+	font-weight: bold;
+	border-radius: 8px;
+	font-family: "vazir";
+	border: 2px solid darkred;
+}
