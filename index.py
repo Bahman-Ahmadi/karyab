@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 from models import registration, urls
 from hashlib import sha256
 from json import loads, dumps
@@ -43,7 +43,11 @@ def register():
 			# if MODE is not signup, so that's login.
 			if getData("email") in registration().getAll("email") and hashedPassword in registration().getAll("password"):
 				thisUser = registration().getUser(getData("email"))
-				if thisUser.get("password") == hashedPassword: return str(thisUser)
+				if thisUser.get("password") == hashedPassword:
+					response = jsonify(thisUser)
+					response.headers.add('Access-Control-Allow-Origin', '*')
+					return response
+
 				else : return "رمزعبور نادرست است"
 			else :
 				return "حسابی با این اطلاعات وجود ندارد"
@@ -68,7 +72,9 @@ def editSite():
 			lastNonAllowedSites.append(nonAllowedSite)
 
 		registration().editUser(getData("UUID"), {"nonAllowedSites": ",".join(lastNonAllowedSites)})
-		return str(registration().getUserByUUID(getData("UUID")))
+		response = jsonify(registration().getUserByUUID(getData("UUID")))
+		response.headers.add('Access-Control-Allow-Origin', '*')
+		return response
 
 	except Exception as e:
 		print(e)
@@ -76,13 +82,19 @@ def editSite():
 
 @app.route("/api/getUser")
 def getUserAPI():
-	try: return {"status": "ok", "response":registration().getUserByUUID(request.args.get("UUID"))}
-	except Exception as e: return {"status":"error", "error":str(e)}, 400
+	try:
+		response = jsonify({"status": "ok", "response":registration().getUserByUUID(request.args.get("UUID"))})
+	except Exception as e:
+		response = {"status":"error", "error":str(e)}, 400
+
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
 
 @app.route("/api/getJobs")
 def getJobsView():
-	return getJobs(request.args.get("UUID"))
-
+	response = jsonify(getJobs(request.args.get("UUID")))
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
 
 @app.errorhandler(404)
 def notFound(error): return render_template("404.html"), 404
