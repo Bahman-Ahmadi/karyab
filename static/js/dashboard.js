@@ -25,3 +25,10 @@ document.body.onload = async function(e) {
 		}
 	}
 };
+
+function share(title, description, link) {
+	var data = `${title}\n${description}\n\nلینک استخدامی : ${link}\nلینک ثبت‌نام در کاریاب : ${domain}`;
+	navigator.share({
+		text: data
+	});
+}

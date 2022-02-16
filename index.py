@@ -98,4 +98,4 @@ def getJobs(UUID):
 
 	return dumps({"jobs":jobs})
 
-app.run(debug=False)
+#app.run(debug=True, port=5000)

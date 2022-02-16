@@ -26,8 +26,25 @@ class searchJob:
 			})
 		return result
 
+	def hamiworks(self):
+		soup = bs4.BeautifulSoup(requests.get(f"https://hamiworks.com/project/project/searchproject?keyword={self.skills}&phrase=any&id_location=1&status=COM_JBLANCE_OPEN&project_type%5Bfixed%5D=COM_JBLANCE_FIXED&project_type%5Bhourly%5D=COM_JBLANCE_HOURLY&budget=0%2C15000000&limit=0&option=com_jblance&view=project&layout=searchproject&task=").text, "html.parser")
+		titles = [i.text for i in soup.findAll("a", {"rel": "nofollow"}) if not "viewprofile" in i.get("href")]
+		descriptions = titles
+		links = ["https://hamiworks.com"+i.get("href") for i in soup.findAll("a", {"rel": "nofollow"}) if not "viewprofile" in i.get("href")]
+	
+		result = []
+	
+		for T,D,L in zip(titles, descriptions, links):
+			result.append({
+				"title": T,
+				"description": D,
+				"link": L
+			})
+		return result
+
 urls = {
-	"ponisha.ir": lambda skills : searchJob(skills).ponisha()
+	"ponisha.ir": lambda skills : searchJob(skills).ponisha(),
+	"hamiworks.com": lambda skills : searchJob(skills).hamiworks(),
 }
 
 class registration:
