@@ -41,23 +41,21 @@ function editSite(sitename) {
 	var account = localStorage.getItem("account");
 	account = JSON.parse(account.replace(/\'/g, '"'));
 
-	let xhr = new XMLHttpRequest();
-
-	xhr.onreadystatechange = async function (e) {
-		if (this.readyState == 4 && this.status == 200) {
-			if (this.responseText.indexOf("{") != -1) {
+	return new Promise ((res)=> {
+		let xhr = new XMLHttpRequest();
+		xhr.onload = function (e) {
+			if (this.readyState == 4 && this.status == 200) {
 				localStorage.setItem("account", this.responseText);
 				toast("تغییرات اعمال شدند", 1500);
 			} else {
 				toast("مجدداً تلاش کنید", 2500);
 			}
-		}
-	};
-	xhr.onerror = function (e) {
-		document.getElementById("check").click();
-	};
+		};
+		xhr.onerror = function (e) {
+			console.error(e);
+		};
+		xhr.open("GET", `${domain}/editSite?UUID=${account.UUID}&site=${sitename}`);
+		xhr.send();
 
-	xhr.open("GET", `${domain}/editSite?UUID=${account.UUID}&site=${sitename}`);
-	xhr.send();
-
+	});
 }

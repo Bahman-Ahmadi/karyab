@@ -46,23 +46,27 @@ function signingUp(parent) {
 	loader.style.visibility = "visible";
 	toast("لطفا اندکی صبر کنید...", 2500);
 
-	let xhr = new XMLHttpRequest();
+	return new Promise ((res)=> {
+		let xhr = new XMLHttpRequest();
+		xhr.onload = async function (e) {
+			if (this.readyState == 4 && this.status == 200) {
+				toast(this.responseText, 2500);
+				await sleep(2500);
+				loader.style.visibility = "hidden";
+				goto("/");
+				return;
+			} else {
+				toast(this.responseText, 2500);
+			}
+		};
+		xhr.onerror = function (e) {
+			console.log(e);
+			document.getElementById("check").click();
+		};
+		xhr.open("GET", `${domain}/register?mode=signup&name=${children[0].value}&email=${children[1].value}&password=${children[2].value}&age=${children[3].value}&skills=${children[4].value}`);
+		xhr.send();
+	});
 
-	xhr.onreadystatechange = async function (e) {
-		if (this.readyState == 4 && this.status == 200) {
-			toast(this.responseText, 2500);
-			await sleep(2500);
-			loader.style.visibility = "hidden";
-			goto("/");
-			return;
-		}
-	};
-	xhr.onerror = function (e) {
-		document.getElementById("check").click();
-	};
-
-	xhr.open("GET", `${domain}/register?mode=signup&name=${children[0].value}&email=${children[1].value}&password=${children[2].value}&age=${children[3].value}&skills=${children[4].value}`);
-	xhr.send();
 }
 
 function logingIn(parent) {
@@ -73,13 +77,10 @@ function logingIn(parent) {
 	loader.style.visibility = "visible";
 	toast("لطفا اندکی صبر کنید...", 2500);
 
-	let xhr = new XMLHttpRequest();
-
-	xhr.onreadystatechange = async function (e) {
-		if (this.readyState == 4 && this.status == 200) {
-			if (this.responseText.indexOf("{") != -1) {
-				var myHeaders = new Headers();
-				myHeaders.set("UUID", JSON.parse(this.responseText.replace(/\'/g, '"')).UUID);
+	return new Promise ((res)=> {
+		let xhr = new XMLHttpRequest();
+		xhr.onload = async function (e) {
+			if (this.readyState == 4 && this.status == 200) {
 				localStorage.setItem("account", this.responseText);
 				toast("با موفقیت به حسابتان وارد شدید", 2500);
 			} else {
@@ -89,13 +90,13 @@ function logingIn(parent) {
 			loader.style.visibility = "hidden";
 			goto("/dashboard");
 			return;
-		}
-	};
-	xhr.onerror = function (e) {
-		console.log(e);
-		document.getElementById("check").click();
-	};
+		};
+		xhr.onerror = function (e) {
+			console.log(e);
+			document.getElementById("check").click();
+		};
+		xhr.open("GET", `${domain}/register?mode=login&email=${children[0].value}&password=${children[1].value}`);
+		xhr.send();
 
-	xhr.open("GET", `${domain}/register?mode=login&email=${children[0].value}&password=${children[1].value}`);
-	xhr.send();
+	});
 }
